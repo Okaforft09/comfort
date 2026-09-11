@@ -1,0 +1,886 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap");
+
+:root {
+  --blue: #7398ff;
+  --light-blue: #b9caff;
+  --bright-blue: #91b5ff;
+  --purple: #8061c9;
+  --deep-purple: #171735;
+  --night-blue: #101936;
+  --pink: #c48ae8;
+  --white: #ffffff;
+  --light-text: #e9ebff;
+  --soft-text: #c7cbed;
+  --card-text: #33335c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "DM Sans", sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+h1,
+h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+/* ------------------------------
+   Landing page
+------------------------------ */
+
+.landing-page {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  padding: 30px;
+  color: var(--light-text);
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 20% 15%,
+      rgba(105, 152, 255, 0.4),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(179, 111, 235, 0.4),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #151c50 0%, #35245d 48%, #573d82 100%);
+}
+
+.landing-content {
+  position: relative;
+  z-index: 2;
+  width: min(720px, 100%);
+  animation: appear 1.2s ease both;
+}
+
+.landing-glow {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+}
+
+.glow-one {
+  top: -100px;
+  left: -80px;
+  background: #529dff;
+}
+
+.glow-two {
+  right: -100px;
+  bottom: -90px;
+  background: #cf66f4;
+}
+
+.small-label {
+  margin-bottom: 18px;
+  color: var(--light-blue);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.landing-content h1 {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.05;
+}
+
+.landing-content h1 span,
+.garden-content h1 span {
+  display: block;
+  color: var(--bright-blue);
+  font-style: italic;
+}
+
+.intro-text {
+  max-width: 510px;
+  margin: 28px auto 35px;
+  color: var(--soft-text);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.main-button,
+.song-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  border: none;
+  border-radius: 50px;
+  color: var(--white);
+  background: linear-gradient(135deg, #729bff, #8560c8);
+  box-shadow: 0 12px 30px rgba(77, 92, 220, 0.35);
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.main-button {
+  padding: 16px 25px;
+}
+
+.main-button:hover,
+.song-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px rgba(112, 126, 255, 0.5);
+}
+
+.main-button span {
+  font-size: 1.3rem;
+}
+
+.bottom-note {
+  margin-top: 45px;
+  color: #b7b7df;
+  font-size: 0.85rem;
+}
+
+.sparkle {
+  position: absolute;
+  color: #b6c9ff;
+  font-size: 1.4rem;
+  animation: twinkle 2.5s ease-in-out infinite;
+}
+
+.sparkle-one {
+  top: 10%;
+  left: 2%;
+}
+
+.sparkle-two {
+  top: 42%;
+  right: 2%;
+  animation-delay: 0.8s;
+}
+
+.sparkle-three {
+  bottom: 3%;
+  left: 17%;
+  animation-delay: 1.3s;
+}
+
+/* ------------------------------
+   Garden page
+------------------------------ */
+
+.garden-page {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: var(--light-text);
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(79, 119, 237, 0.36),
+      transparent 33%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(127, 63, 192, 0.42),
+      transparent 35%
+    ),
+    linear-gradient(160deg, #101736 0%, #242358 52%, #493d79 100%);
+}
+
+.garden-content {
+  position: relative;
+  z-index: 5;
+  width: min(820px, 100%);
+  min-height: 100vh;
+  margin: auto;
+  padding: 70px 24px 60px;
+  text-align: center;
+}
+
+.garden-content .small-label {
+  color: #afc4ff;
+}
+
+.garden-content h1 {
+  font-size: clamp(2.25rem, 5vw, 4.7rem);
+  line-height: 1.1;
+}
+
+.garden-content h1 span {
+  color: #a9c3ff;
+}
+
+.garden-message {
+  margin: 20px auto 0;
+  color: #c9ccef;
+  font-size: 1rem;
+}
+
+/* ------------------------------
+   Moon and stars
+------------------------------ */
+
+.moon {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #e5ecff;
+  box-shadow: 0 0 40px rgba(178, 198, 255, 0.55);
+}
+
+.moon::after {
+  position: absolute;
+  top: -8px;
+  left: 23px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #141b3b;
+  content: "";
+}
+
+.stars,
+.stars::before,
+.stars::after {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    70px 40px #ffffff,
+    145px 120px #9eb5ff,
+    220px 35px #ffffff,
+    300px 160px #ffffff,
+    390px 80px #9eb5ff,
+    480px 200px #ffffff,
+    590px 50px #ffffff,
+    680px 150px #9eb5ff,
+    760px 30px #ffffff,
+    850px 220px #ffffff;
+  content: "";
+  opacity: 0.75;
+}
+
+.stars {
+  top: 10%;
+  left: 5%;
+}
+
+.stars::before {
+  top: 160px;
+  left: 20px;
+  transform: scale(0.7);
+}
+
+.stars::after {
+  top: 310px;
+  left: 100px;
+  transform: scale(0.5);
+}
+
+/* ------------------------------
+   Tree animation
+------------------------------ */
+
+.tree-scene {
+  position: relative;
+  height: 340px;
+  margin: 18px auto 0;
+}
+
+.tree {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  width: 280px;
+  height: 310px;
+  transform: translateX(-50%);
+}
+
+.trunk {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 43px;
+  height: 190px;
+  border-radius: 50% 50% 18% 18%;
+  background: linear-gradient(90deg, #30274d, #73516b, #312647);
+  transform: translateX(-50%);
+  transform-origin: bottom;
+  animation: grow-trunk 2.4s ease-out both;
+}
+
+.branch {
+  position: absolute;
+  bottom: 126px;
+  width: 20px;
+  height: 132px;
+  border-radius: 30px;
+  background: #514062;
+  transform-origin: bottom;
+  animation: grow-branch 2s 1.4s ease-out both;
+}
+
+.branch-left {
+  left: 43%;
+  transform: rotate(-48deg) scaleY(0);
+}
+
+.branch-right {
+  right: 43%;
+  transform: rotate(48deg) scaleY(0);
+}
+
+.branch-center {
+  left: 47%;
+  height: 145px;
+  transform: rotate(4deg) scaleY(0);
+}
+
+.heart {
+  position: absolute;
+  z-index: 3;
+  color: #86b4ff;
+  font-size: 32px;
+  opacity: 0;
+  filter: drop-shadow(0 0 13px rgba(115, 174, 255, 0.85));
+  transform: scale(0);
+  animation: bloom-heart 0.7s ease-out forwards;
+}
+
+.heart-one {
+  top: 28px;
+  left: 45px;
+  animation-delay: 3s;
+}
+
+.heart-two {
+  top: 60px;
+  left: 108px;
+  animation-delay: 3.3s;
+}
+
+.heart-three {
+  top: 7px;
+  left: 149px;
+  animation-delay: 3.6s;
+}
+
+.heart-four {
+  top: 70px;
+  right: 37px;
+  animation-delay: 3.9s;
+}
+
+.heart-five {
+  top: 112px;
+  left: 68px;
+  animation-delay: 4.2s;
+}
+
+.heart-six {
+  top: 123px;
+  left: 170px;
+  animation-delay: 4.5s;
+}
+
+.heart-seven {
+  top: 158px;
+  left: 106px;
+  animation-delay: 4.8s;
+}
+
+.heart-eight {
+  top: 164px;
+  right: 33px;
+  animation-delay: 5.1s;
+}
+
+.heart-nine {
+  top: 42px;
+  left: 204px;
+  animation-delay: 5.4s;
+}
+
+.heart-ten {
+  top: 95px;
+  left: 17px;
+  animation-delay: 5.7s;
+}
+
+.ground {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  width: 355px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(7, 14, 37, 0.6);
+  transform: translateX(-50%);
+  filter: blur(2px);
+}
+
+/* ------------------------------
+   Butterflies
+------------------------------ */
+
+.butterfly {
+  position: absolute;
+  z-index: 4;
+  width: 45px;
+  height: 35px;
+  animation: fly 13s linear infinite;
+}
+
+.butterfly .wing {
+  position: absolute;
+  top: 3px;
+  width: 21px;
+  height: 30px;
+  border-radius: 75% 15% 75% 15%;
+  background: linear-gradient(135deg, #d6e1ff, #7599ff);
+  box-shadow: 0 0 13px rgba(135, 171, 255, 0.75);
+  animation: flap 0.35s ease-in-out infinite alternate;
+}
+
+.left-wing {
+  left: 0;
+  transform-origin: right center;
+  transform: rotate(35deg);
+}
+
+.right-wing {
+  right: 0;
+  transform-origin: left center;
+  transform: rotate(-35deg);
+}
+
+.butterfly-body {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  z-index: 2;
+  width: 6px;
+  height: 27px;
+  border-radius: 50%;
+  background: #272345;
+}
+
+.butterfly-one {
+  top: 27%;
+  left: -70px;
+  animation-delay: 0s;
+}
+
+.butterfly-two {
+  top: 48%;
+  left: -80px;
+  transform: scale(0.72);
+  animation-delay: 4s;
+}
+
+.butterfly-three {
+  top: 20%;
+  left: -90px;
+  transform: scale(0.5);
+  animation-delay: 7s;
+}
+
+.butterfly-four {
+  top: 62%;
+  left: -100px;
+  transform: scale(0.85);
+  animation-delay: 10s;
+}
+
+/* ------------------------------
+   Song button
+------------------------------ */
+
+.song-controls {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+}
+
+.song-button {
+  position: relative;
+  z-index: 11;
+  min-width: 235px;
+  padding: 17px 25px;
+  border: 2px solid rgba(205, 220, 255, 0.55);
+  font-weight: 600;
+}
+
+.music-icon {
+  font-size: 1.5rem;
+}
+
+.song-name {
+  margin-top: 12px;
+  color: #d1d7ff;
+  font-size: 0.85rem;
+}
+
+.back-link {
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  margin-top: 28px;
+  color: #b7c8ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #ffffff;
+}
+
+/* ------------------------------
+   Music overlay
+------------------------------ */
+
+.song-overlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  padding: 20px;
+  place-items: center;
+  background: rgba(7, 12, 35, 0.78);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.35s ease;
+  backdrop-filter: blur(8px);
+}
+
+.song-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.song-card {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 36px 30px 28px;
+  border: 1px solid rgba(199, 215, 255, 0.65);
+  border-radius: 24px;
+  color: var(--card-text);
+  background: rgba(246, 248, 255, 0.98);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+  transform: translateY(30px) scale(0.95);
+  transition: 0.35s ease;
+}
+
+.song-overlay.show .song-card {
+  transform: translateY(0) scale(1);
+}
+
+.song-card .small-label {
+  color: #637cc5;
+}
+
+.song-card h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.artist-name {
+  margin: 5px 0 18px;
+  color: #6b6790;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 17px;
+  border: none;
+  color: #6d6790;
+  background: transparent;
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.playlist {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.song-choice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d9def8;
+  border-radius: 14px;
+  color: #34345e;
+  background: #f8f9ff;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.25s ease;
+}
+
+.song-choice:hover,
+.song-choice.active {
+  border-color: #7698ff;
+  background: #e9edff;
+  transform: translateX(3px);
+}
+
+.song-number {
+  color: #7188d8;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.song-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.song-choice strong {
+  font-size: 0.92rem;
+}
+
+.song-choice small {
+  color: #777398;
+  font-size: 0.78rem;
+}
+
+.play-symbol {
+  color: #647fdd;
+  font-size: 1rem;
+}
+
+.audio-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.audio-button {
+  padding: 12px 19px;
+  border: none;
+  border-radius: 24px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #5c8cff, #8157c8);
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.audio-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(91, 112, 235, 0.35);
+}
+
+.audio-button.secondary {
+  color: #514d78;
+  background: #e4e8ff;
+}
+
+.license-note {
+  margin-top: 16px;
+  color: #777398;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* ------------------------------
+   Animations
+------------------------------ */
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(20deg);
+  }
+}
+
+@keyframes grow-trunk {
+  from {
+    transform: translateX(-50%) scaleY(0);
+  }
+
+  to {
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+@keyframes grow-branch {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(0) scaleY(1);
+  }
+}
+
+@keyframes bloom-heart {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-25deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.25) rotate(10deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes flap {
+  from {
+    transform: rotate(35deg) scaleY(1);
+  }
+
+  to {
+    transform: rotate(35deg) scaleY(0.65);
+  }
+}
+
+@keyframes fly {
+  0% {
+    left: -80px;
+    transform: translateY(0) rotate(8deg);
+  }
+
+  25% {
+    transform: translateY(-80px) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(50px) rotate(8deg);
+  }
+
+  75% {
+    transform: translateY(-45px) rotate(-5deg);
+  }
+
+  100% {
+    left: calc(100% + 80px);
+    transform: translateY(20px) rotate(8deg);
+  }
+}
+
+/* ------------------------------
+   Mobile
+------------------------------ */
+
+@media (max-width: 600px) {
+  .landing-page {
+    padding: 22px;
+  }
+
+  .landing-content h1 {
+    font-size: 2.7rem;
+  }
+
+  .garden-content {
+    padding-top: 54px;
+  }
+
+  .garden-content h1 {
+    font-size: 2.35rem;
+  }
+
+  .moon {
+    top: 4%;
+    right: 5%;
+    width: 62px;
+    height: 62px;
+  }
+
+  .moon::after {
+    left: 15px;
+    width: 62px;
+    height: 62px;
+  }
+
+  .tree-scene {
+    height: 310px;
+    transform: scale(0.85);
+    transform-origin: top center;
+  }
+
+  .song-card {
+    padding: 32px 15px 22px;
+  }
+
+  .audio-button {
+    padding: 11px 14px;
+    font-size: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

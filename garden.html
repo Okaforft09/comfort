@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="A quiet little garden with music and blue hearts."
+  />
+  <title>Your Little Garden</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="garden-page">
+
+  <div class="moon"></div>
+  <div class="stars"></div>
+
+  <!-- Animated butterflies -->
+  <div class="butterfly butterfly-one" aria-hidden="true">
+    <span class="wing left-wing"></span>
+    <span class="butterfly-body"></span>
+    <span class="wing right-wing"></span>
+  </div>
+
+  <div class="butterfly butterfly-two" aria-hidden="true">
+    <span class="wing left-wing"></span>
+    <span class="butterfly-body"></span>
+    <span class="wing right-wing"></span>
+  </div>
+
+  <div class="butterfly butterfly-three" aria-hidden="true">
+    <span class="wing left-wing"></span>
+    <span class="butterfly-body"></span>
+    <span class="wing right-wing"></span>
+  </div>
+
+  <div class="butterfly butterfly-four" aria-hidden="true">
+    <span class="wing left-wing"></span>
+    <span class="butterfly-body"></span>
+    <span class="wing right-wing"></span>
+  </div>
+
+  <main class="garden-content">
+    <p class="small-label"></p>
+
+    <h1>
+      <span></span>
+    </h1>
+
+    <p class="garden-message">I always wan't the best for you no matter what it cost's me. You'll never lose me I promise
+    </p>
+
+    <!-- Animated tree -->
+    <section
+      class="tree-scene"
+      aria-label="A tree blooming with blue hearts"
+    >
+      <div class="tree">
+        <div class="trunk"></div>
+        <div class="branch branch-left"></div>
+        <div class="branch branch-right"></div>
+        <div class="branch branch-center"></div>
+
+        <div class="heart heart-one">♥</div>
+        <div class="heart heart-two">♥</div>
+        <div class="heart heart-three">♥</div>
+        <div class="heart heart-four">♥</div>
+        <div class="heart heart-five">♥</div>
+        <div class="heart heart-six">♥</div>
+        <div class="heart heart-seven">♥</div>
+        <div class="heart heart-eight">♥</div>
+        <div class="heart heart-nine">♥</div>
+        <div class="heart heart-ten">♥</div>
+      </div>
+
+      <div class="ground"></div>
+    </section>
+
+    <!-- Main music button -->
+    <div class="song-controls">
+      <button
+        class="song-button"
+        id="openSong"
+        type="button"
+      >
+        <span class="music-icon">♫</span>
+        Open a surprise
+        <span>♡</span>
+      </button>
+
+      <p class="song-name"></p>
+    </div>
+
+    <a href="index.html" class="back-link">
+      ← Back to the beginning
+    </a>
+  </main>
+
+  <!-- Music overlay -->
+  <div
+    class="song-overlay"
+    id="songOverlay"
+    aria-hidden="true"
+  >
+    <div
+      class="song-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="currentSongTitle"
+    >
+      <button
+        class="close-button"
+        id="closeSong"
+        type="button"
+        aria-label="Close music player"
+      >
+        ×
+      </button>
+
+      <p class="small-label">A song for this moment</p>
+
+      <h2 id="currentSongTitle">Choose a surprise</h2>
+      <p class="artist-name" id="currentArtist">
+        Something special is waiting
+      </p>
+
+      <!-- The MP3 is loaded by JavaScript -->
+      <audio id="comfortSong" preload="metadata"></audio>
+
+      <!-- Hidden song names -->
+      <div class="playlist">
+
+        <button
+          class="song-choice"
+          type="button"
+          data-file="audio/miracle-acoustic-version.mp3"
+        >
+          <span class="song-number">01</span>
+
+          <span class="song-text">
+            <strong>Tap for a surprise</strong>
+            <small>Something special is waiting</small>
+          </span>
+
+          <span class="play-symbol">▶</span>
+        </button>
+
+        <button
+          class="song-choice"
+          type="button"
+          data-file="audio/Arcadia.mp3"
+        >
+          <span class="song-number">02</span>
+
+          <span class="song-text">
+            <strong>Another surprise</strong>
+            <small>A song chosen for you</small>
+          </span>
+
+          <span class="play-symbol">▶</span>
+        </button>
+
+      </div>
+
+      <div class="audio-controls">
+        <button
+          class="audio-button"
+          id="pauseAudio"
+          type="button"
+        >
+          Ⅱ Pause
+        </button>
+
+        <button
+          class="audio-button secondary"
+          id="stopAudio"
+          type="button"
+        >
+          ■ Stop
+        </button>
+
+        <button
+          class="audio-button"
+          id="nextAudio"
+          type="button"
+        >
+          Next →
+        </button>
+      </div>
+
+      <p class="license-note">
+        Music used with permission.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const openSong = document.getElementById("openSong");
+    const closeSong = document.getElementById("closeSong");
+    const songOverlay = document.getElementById("songOverlay");
+
+    const comfortSong = document.getElementById("comfortSong");
+    const pauseAudio = document.getElementById("pauseAudio");
+    const stopAudio = document.getElementById("stopAudio");
+    const nextAudio = document.getElementById("nextAudio");
+
+    const currentSongTitle = document.getElementById("currentSongTitle");
+    const currentArtist = document.getElementById("currentArtist");
+
+    const songChoices = Array.from(
+      document.querySelectorAll(".song-choice")
+    );
+
+    let currentSongIndex = -1;
+
+    function showOverlay() {
+      songOverlay.classList.add("show");
+      songOverlay.setAttribute("aria-hidden", "false");
+    }
+
+    function hideOverlay() {
+      songOverlay.classList.remove("show");
+      songOverlay.setAttribute("aria-hidden", "true");
+      stopCurrentSong();
+    }
+
+    function stopCurrentSong() {
+      comfortSong.pause();
+      comfortSong.currentTime = 0;
+      pauseAudio.textContent = "Ⅱ Pause";
+    }
+
+    async function playSong(index) {
+      if (!songChoices[index]) {
+        return;
+      }
+
+      const selectedSong = songChoices[index];
+      const file = selectedSong.dataset.file;
+
+      currentSongIndex = index;
+
+      /*
+        The real filenames and artist names are intentionally not shown.
+      */
+      currentSongTitle.textContent = "A song for you ♡";
+      currentArtist.textContent = "Playing a little surprise";
+
+      songChoices.forEach((choice) => {
+        choice.classList.remove("active");
+      });
+
+      selectedSong.classList.add("active");
+
+      comfortSong.pause();
+      comfortSong.currentTime = 0;
+      comfortSong.src = file;
+      comfortSong.load();
+
+      try {
+        await comfortSong.play();
+        pauseAudio.textContent = "Ⅱ Pause";
+      } catch (error) {
+        console.error("Audio playback failed:", error);
+
+        alert(
+          "The song could not play. Check that the MP3 file is inside the audio folder and that its filename is correct."
+        );
+      }
+    }
+
+    openSong.addEventListener("click", () => {
+      showOverlay();
+    });
+
+    closeSong.addEventListener("click", () => {
+      hideOverlay();
+    });
+
+    songOverlay.addEventListener("click", (event) => {
+      if (event.target === songOverlay) {
+        hideOverlay();
+      }
+    });
+
+    songChoices.forEach((choice, index) => {
+      choice.addEventListener("click", () => {
+        playSong(index);
+      });
+    });
+
+    pauseAudio.addEventListener("click", async () => {
+      if (!comfortSong.src) {
+        await playSong(0);
+        return;
+      }
+
+      if (comfortSong.paused) {
+        try {
+          await comfortSong.play();
+          pauseAudio.textContent = "Ⅱ Pause";
+        } catch (error) {
+          console.error("Could not resume audio:", error);
+        }
+      } else {
+        comfortSong.pause();
+        pauseAudio.textContent = "▶ Resume";
+      }
+    });
+
+    stopAudio.addEventListener("click", () => {
+      stopCurrentSong();
+    });
+
+    nextAudio.addEventListener("click", () => {
+      const nextIndex =
+        currentSongIndex < songChoices.length - 1
+          ? currentSongIndex + 1
+          : 0;
+
+      playSong(nextIndex);
+    });
+
+    comfortSong.addEventListener("ended", () => {
+      const nextIndex =
+        currentSongIndex < songChoices.length - 1
+          ? currentSongIndex + 1
+          : 0;
+
+      playSong(nextIndex);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        hideOverlay();
+      }
+    });
+  </script>
+
+</body>
+</html>
