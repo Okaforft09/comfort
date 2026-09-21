@@ -77,24 +77,28 @@
     </section>
 
     <!-- Main music button -->
-    <div class="song-controls">
-      <button
-        class="song-button"
-        id="openSong"
-        type="button"
-      >
-        <span class="music-icon">♫</span>
-        Open a surprise
-        <span>♡</span>
-      </button>
+   <div class="song-controls">
+  <button
+    class="song-button"
+    id="openSong"
+    type="button"
+  >
+    <span class="music-icon">♫</span>
+    Open a surprise
+    <span>♡</span>
+  </button>
 
-      <p class="song-name"></p>
-    </div>
+  <p class="song-name">Three little songs for you</p>
+</div>
 
-    <a href="index.html" class="back-link">
-      ← Back to the beginning
-    </a>
-  </main>
+<!-- Link to the letter page -->
+<a href="letter.html" class="letter-page-link">
+  Open your letter ♡
+</a>
+
+<a href="index.html" class="back-link">
+  ← Back to the beginning
+</a>
 
   <!-- Music overlay -->
   <div
@@ -133,7 +137,7 @@
         <button
           class="song-choice"
           type="button"
-          data-file="audio/miracle-acoustic-version.mp3"
+          data-file="audio/torus.mp3"
         >
           <span class="song-number">01</span>
 
@@ -148,7 +152,7 @@
         <button
           class="song-choice"
           type="button"
-          data-file="audio/Arcadia.mp3"
+          data-file="audio/miracle-acoustic-version.mp3"
         >
           <span class="song-number">02</span>
 
@@ -156,6 +160,8 @@
             <strong>Another surprise</strong>
             <small>A song chosen for you</small>
           </span>
+
+
 
           <span class="play-symbol">▶</span>
         </button>
@@ -211,7 +217,21 @@
       document.querySelectorAll(".song-choice")
     );
 
+    const audioStateKey = "comfortPageAudioState";
     let currentSongIndex = -1;
+
+    function saveAudioState() {
+      const state = {
+        src: comfortSong.src || "",
+        currentTime: Number.isFinite(comfortSong.currentTime)
+          ? comfortSong.currentTime
+          : 0,
+        isPlaying: !comfortSong.paused,
+        songIndex: currentSongIndex
+      };
+
+      localStorage.setItem(audioStateKey, JSON.stringify(state));
+    }
 
     function showOverlay() {
       songOverlay.classList.add("show");
@@ -221,13 +241,14 @@
     function hideOverlay() {
       songOverlay.classList.remove("show");
       songOverlay.setAttribute("aria-hidden", "true");
-      stopCurrentSong();
+      saveAudioState();
     }
 
     function stopCurrentSong() {
       comfortSong.pause();
       comfortSong.currentTime = 0;
       pauseAudio.textContent = "Ⅱ Pause";
+      saveAudioState();
     }
 
     async function playSong(index) {
@@ -267,6 +288,8 @@
           "The song could not play. Check that the MP3 file is inside the audio folder and that its filename is correct."
         );
       }
+
+      saveAudioState();
     }
 
     openSong.addEventListener("click", () => {
@@ -306,6 +329,8 @@
         comfortSong.pause();
         pauseAudio.textContent = "▶ Resume";
       }
+
+      saveAudioState();
     });
 
     stopAudio.addEventListener("click", () => {
@@ -329,6 +354,11 @@
 
       playSong(nextIndex);
     });
+
+    comfortSong.addEventListener("play", saveAudioState);
+    comfortSong.addEventListener("pause", saveAudioState);
+    comfortSong.addEventListener("timeupdate", saveAudioState);
+    window.addEventListener("beforeunload", saveAudioState);
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
